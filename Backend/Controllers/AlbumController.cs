@@ -38,6 +38,9 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(Album model)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             await Repository.SaveAsync(model);
 
             return Created($"/{model.Id}", model);

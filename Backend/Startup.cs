@@ -31,6 +31,10 @@ namespace Backend
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AppDbContext>(option => option.UseMySql(connectionString));
 
+            services.AddScoped(typeof(BaseRepository<>));
+            services.AddScoped<UserRepository>();
+            services.AddScoped<AlbumRepository>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

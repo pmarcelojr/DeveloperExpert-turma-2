@@ -6,10 +6,10 @@ namespace Backend.Repository
 {
     public interface IRepository<T>
     {
-        Task<IEnumerable<T>> GetAll();
-        Task<T> GetById(Guid id);
-        Task Save(T obj);
-        Task Remove(T obj);
-        Task Update(T obj);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task<T> GetByIdAsync(Guid id);
+        Task SaveAsync(T obj);
+        Task RemoveAsync(T obj);
+        Task UpdateAsync(T obj);
     }
 }

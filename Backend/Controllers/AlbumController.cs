@@ -24,7 +24,7 @@ namespace Backend.Controllers
         public async Task<IActionResult> Get()
         {
             // TODO: Your code here
-            return Ok(await Repository.GetAllAsync());
+            return Ok(await Repository.GetAll());
         }
 
         [HttpGet("{id}")]

@@ -11,7 +11,7 @@ namespace Backend.Repository
     {
         public UserRepository(AppDbContext context) : base(context)
         {
-            
+
         }
 
         public async Task<IList<UserFavoriteMusic>> GetFavoriteMusics(Guid id)
@@ -22,6 +22,24 @@ namespace Backend.Repository
                                 .Where(x => x.Id == id)
                                 .SelectMany(x => x.FavoriteMusics)
                                 .ToListAsync();
+        }
+
+        public async Task<User> Authenticate(string email, string password)
+        {
+            return await Query.Include(x => x.FavoriteMusics)
+                                .ThenInclude(x => x.Music)
+                                .ThenInclude(x => x.Album)
+                                .Where(x => x.Password == password && x.Email == email)
+                                .FirstOrDefaultAsync();
+        }
+
+        public new async Task<User> GetByIdAsync(Guid id)
+        {
+            return await Query.Include(x => x.FavoriteMusics)
+                                .ThenInclude(x => x.Music)
+                                .ThenInclude(x => x.Album)
+                                .Where(x => x.Id == id)
+                                .FirstOrDefaultAsync();
         }
     }
 }

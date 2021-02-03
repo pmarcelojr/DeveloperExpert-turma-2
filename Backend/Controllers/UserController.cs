@@ -23,6 +23,26 @@ namespace Backend.Controllers
             AlbumRepository = albumRepository;
         }
 
+        [HttpPost("authenticate")]
+        public async Task<IActionResult> SignIn(SignInViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var password64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(model.Password));
+            var user = await Repository.Authenticate(model.Email, password64);
+
+            if (user == null)
+            {
+                return UnprocessableEntity(new
+                {
+                    Message = "Email or Password Invalid"
+                });
+            }
+
+            return Ok(user);
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterUserViewModel model)
         {
@@ -58,7 +78,7 @@ namespace Backend.Controllers
             return Ok(user);
         }
 
-        [HttpDelete("{id}/favore-music/{musicId}")]
+        [HttpDelete("{id}/favorite-music/{musicId}")]
         public async Task<IActionResult> RemoveUserFavoriteMusic(Guid id, Guid musicId)
         {
             var music = await AlbumRepository.GetMusic(musicId);

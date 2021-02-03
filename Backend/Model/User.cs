@@ -6,6 +6,11 @@ namespace Backend.Model
 {
     public class User
     {
+        public User()
+        {
+            FavoriteMusics = new List<UserFavoriteMusic>();
+        }
+
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
@@ -26,7 +31,7 @@ namespace Backend.Model
 
         public void RemoveFavoriteMusic(Music music)
         {
-            var favoriteMusic = FavoriteMusics.FirstOrDefault(x => x.Id == music.Id);
+            var favoriteMusic = FavoriteMusics.FirstOrDefault(x => x.MusicId == music.Id);
             FavoriteMusics.Remove(favoriteMusic);
         }
     }

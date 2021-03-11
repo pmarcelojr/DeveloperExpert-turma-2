@@ -26,7 +26,7 @@ export class MusicService {
 
   public getMusics(id: string) : Observable<Music[]> {
     return this.http.get<Music[]>(
-      `${environment.baseUrl}album/${id}/music`
+      `${environment.baseUrl}music/${id}`
     );
   }
 }

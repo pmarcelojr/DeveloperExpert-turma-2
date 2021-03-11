@@ -32,5 +32,12 @@ namespace Backend.Repository
                                 .SelectMany(x => x.Musics)
                                 .FirstOrDefaultAsync(x => x.Id == musicId);
         }
+
+        public new async Task<Album> GetByIdAsync(Guid id)
+        {
+            return await Query.Include(x => x.Musics)
+                                .Where(x => x.Id == id)
+                                .FirstOrDefaultAsync();
+        }
     }
 }

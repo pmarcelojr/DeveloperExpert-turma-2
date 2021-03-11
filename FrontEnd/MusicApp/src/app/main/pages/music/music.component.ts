@@ -11,7 +11,7 @@ import { Observable } from "rxjs";
 })
 export class MusicComponent implements OnInit {
     albums: Album[];
-    constructor(private service: MusicService) {}
+    constructor(private service: MusicService, private router: Router) {}
     ngOnInit() {
         this.service.getAlbums().subscribe((data) => {
             this.albums = data;
@@ -19,6 +19,6 @@ export class MusicComponent implements OnInit {
     }
 
     detail(album: Album) {
-        
+        this.router.navigate(["page", "music", album.id]);
     }
 }

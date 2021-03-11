@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Backend.Model;
 using Backend.Repository;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("AllowOrigin")] 
     [ApiController]
     public class MusicController : ControllerBase
     {

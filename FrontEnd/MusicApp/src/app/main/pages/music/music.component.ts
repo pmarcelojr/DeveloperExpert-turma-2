@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import Album from "app/model/album.model";
+import { MusicService } from "app/services/music.service";
 import { Observable } from "rxjs";
 
 @Component({
@@ -8,6 +10,15 @@ import { Observable } from "rxjs";
     styleUrls: ["./music.component.scss"],
 })
 export class MusicComponent implements OnInit {
-    constructor() {}
-    ngOnInit() {}
+    albums: Album[];
+    constructor(private service: MusicService) {}
+    ngOnInit() {
+        this.service.getAlbums().subscribe((data) => {
+            this.albums = data;
+        });
+    }
+
+    detail(album: Album) {
+        
+    }
 }
